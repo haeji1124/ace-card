@@ -1,9 +1,6 @@
 import React, { useState, useRef } from "react";
-
 import { Mail } from "lucide-react";
-
 import { Editor } from "@toast-ui/react-editor";
-
 import "@toast-ui/editor/dist/toastui-editor.css";
 
 const FloatingButton = () => {
