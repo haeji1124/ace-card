@@ -1,13 +1,15 @@
 import React, { useContext, useState } from "react";
 import AuthContext from "../../store/auth-context";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const authCtx = useContext(AuthContext);
-  const [showError, setShowError] = useState(false);
+  const navigate = useNavigate(); 
 
   const submitHandler = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
+    const email = formData.get("email");
     const password = formData.get("password");
     const confirmPassword = formData.get("confirm-password");
 
@@ -21,6 +23,15 @@ const SignUp = () => {
     if (password !== confirmPassword) {
       // setShowError(true);
       alert("패스워드가 일치하지 않습니다");
+      return
+    }
+
+    // 이미 가입된 사용자인지 확인
+    try {
+      authCtx.onSignUp(email, password);
+      navigate("/"); // 회원가입 성공 시 홈으로 이동
+    } catch (error) {
+      alert(error.message);
     }
 
     // authCtx.onLogin(formData.get("email"), formData.get("password"));
