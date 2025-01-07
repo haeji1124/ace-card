@@ -1,19 +1,27 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import AuthContext from "../../store/auth-context";
 
 const SignUp = () => {
   const authCtx = useContext(AuthContext);
+  const [showError, setShowError] = useState(false);
 
   const submitHandler = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
+    const password = formData.get("password");
+    const confirmPassword = formData.get("confirm-password");
+
     console.log({
       email: formData.get("email"),
-      password: formData.get("password"),
-      confirmPassword: formData.get("confirm-password"),
+      password: password,
+      confirmPassword: confirmPassword,
     });
 
     // 패스워드가 안맞으면 안넘어가게
+    if (password !== confirmPassword) {
+      // setShowError(true);
+      alert("패스워드가 일치하지 않습니다");
+    }
 
     // authCtx.onLogin(formData.get("email"), formData.get("password"));
   };
