@@ -5,7 +5,7 @@ const Login = () => {
   const authCtx = useContext(AuthContext);
 
   const submitHandler = (event) => {
-    // event.preventDefault();
+    event.preventDefault(); // url에 param set을 막음?
     const formData = new FormData(event.target);
     console.log({
       email: formData.get("email"),
