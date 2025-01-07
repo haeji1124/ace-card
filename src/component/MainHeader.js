@@ -21,7 +21,7 @@ const MainHeader = () => {
           <nav className="hidden md:block">
             <ul className="flex space-x-8">
               <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900">
+                <a href="/" className="text-gray-600 hover:text-gray-900">
                   홈
                 </a>
               </li>
