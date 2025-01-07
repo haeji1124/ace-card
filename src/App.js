@@ -7,6 +7,7 @@ import FloatingButton from "./component/UI/FloatingButton/FloatingButton";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import SignUp from "./component/SignUp/SignUp";
 import Inbox from "./component/MessageCards/Inbox";
+import Outbox from "./component/MessageCards/Outbox";
 
 function App() {
   const ctx = useContext(AuthContext);
@@ -39,6 +40,10 @@ function App() {
             <Route
               path="/inbox"
               element={ctx.isLoggedIn ? <Inbox /> : <Navigate to="/login" replace />}
+            />
+            <Route
+              path="/outbox"
+              element={ctx.isLoggedIn ? <Outbox /> : <Navigate to="/login" replace />}
             />
             <Route
               path="/"
