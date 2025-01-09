@@ -3,9 +3,6 @@ import { User } from "lucide-react";
 import AuthContext from "../store/auth-context";
 
 const MainHeader = () => {
-  const user = {
-    name: "홍길동",
-  };
   const authCtx = useContext(AuthContext);
 
   return (
@@ -26,13 +23,13 @@ const MainHeader = () => {
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900">
-                  서비스
+                <a href="/outbox" className="text-gray-600 hover:text-gray-900">
+                  보낸 칭찬함
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-600 hover:text-gray-900">
-                  문의하기
+                <a href="/inbox" className="text-gray-600 hover:text-gray-900">
+                  받은 칭찬함
                 </a>
               </li>
             </ul>
@@ -42,7 +39,7 @@ const MainHeader = () => {
           <div className="flex items-center space-x-4">
             <div className="text-right">
               <p className="text-sm font-medium text-gray-900">
-                {authCtx.isLoggedIn && user.name}
+                {authCtx.isLoggedIn && authCtx.name}
               </p>
               <p className="text-xs text-gray-500">
                 {authCtx.isLoggedIn && authCtx.email}
