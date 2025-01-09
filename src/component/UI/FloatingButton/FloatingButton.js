@@ -22,7 +22,7 @@ const FloatingButton = () => {
     setIsModalOpen(true);
     setTimeout(() => {
       setShowEditor(true);
-    }, 2000);
+    }, 3000);
   };
 
   const handleCloseModal = () => {
@@ -133,18 +133,14 @@ const FloatingButton = () => {
 
             <div className="p-4 flex-1 flex flex-col space-y-4 overflow-hidden">
               {!showEditor ? (
-                <div className="flex-1 flex items-center justify-center">
-                  <div className="envelope">
-                    <div className="envelope-body">
-                      <div className="envelope-left"></div>
+                <div className="envelope">
+                  <div className="envelope-body" />
 
-                      <div className="envelope-right"></div>
-                    </div>
-
-                    <div className="letter"></div>
-
-                    <div className="envelope-flap"></div>
+                  <div className="letter">
+                    <span className="letter-text">Ace Card</span>
                   </div>
+
+                  <div className="envelope-flap" />
                 </div>
               ) : (
                 <>
