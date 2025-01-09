@@ -4,9 +4,11 @@ import { Editor } from "@toast-ui/react-editor";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import AuthContext from "../../../store/auth-context";
 import { useNavigate } from "react-router-dom";
+import "./FloatingButton.css";
 
 const FloatingButton = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showEditor, setShowEditor] = useState(false);
   const [title, setTitle] = useState("");
   const [recipient, setRecipient] = useState("");
   const [filteredUsers, setFilteredUsers] = useState([]);
@@ -15,6 +17,18 @@ const FloatingButton = () => {
   const dropdownRef = useRef(null);
   const authCtx = useContext(AuthContext);
   const navigate = useNavigate();
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+    setTimeout(() => {
+      setShowEditor(true);
+    }, 2000);
+  };
+
+  const handleCloseModal = () => {
+    setShowEditor(false);
+    setIsModalOpen(false);
+  };
 
   const getFilteredUsers = (searchText) => {
     const users = JSON.parse(localStorage.getItem("users") || "[]");
@@ -99,7 +113,7 @@ const FloatingButton = () => {
     <>
       <button
         className="fixed bottom-6 right-6 p-4 bg-indigo-600 text-white rounded-full shadow-lg hover:bg-indigo-500"
-        onClick={() => setIsModalOpen(true)}
+        onClick={handleOpenModal}
       >
         <Mail className="w-6 h-6" />
       </button>
@@ -110,7 +124,7 @@ const FloatingButton = () => {
             <div className="flex items-center justify-between p-4 border-b">
               <h2 className="text-lg font-semibold">새 메시지</h2>
               <button
-                onClick={() => setIsModalOpen(false)}
+                onClick={handleCloseModal}
                 className="text-gray-500 hover:text-gray-700 text-xl"
               >
                 ×
@@ -118,57 +132,69 @@ const FloatingButton = () => {
             </div>
 
             <div className="p-4 flex-1 flex flex-col space-y-4 overflow-hidden">
-              <input
-                type="text"
-                placeholder="제목"
-                className="w-full p-2 border rounded"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                required
-              />
-
-              <div className="relative" ref={dropdownRef}>
-                <input
-                  type="email"
-                  placeholder="받는 사람"
-                  className="w-full p-2 border rounded"
-                  value={recipient}
-                  onChange={handleRecipientChange}
-                  required
-                />
-                {showDropdown && filteredUsers.length > 0 && (
-                  <div className="absolute z-10 w-full mt-1 bg-white border rounded-md shadow-lg max-h-48 overflow-y-auto">
-                    {filteredUsers.map((email, index) => (
-                      <div
-                        key={index}
-                        className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                        onClick={() => handleSelectUser(email)}
-                      >
-                        {email}
-                      </div>
-                    ))}
+              {!showEditor ? (
+                <div className="flex-1 flex items-center justify-center">
+                  <div className="envelope">
+                    <div className="envelope-flap"></div>
+                    <div className="envelope-body"></div>
+                    <div className="letter"></div>
                   </div>
-                )}
-              </div>
-              <div className="flex-1">
-                <Editor
-                  ref={editorRef}
-                  initialValue="내용을 입력하세요"
-                  previewStyle="vertical"
-                  height="100%"
-                  initialEditType="wysiwyg"
-                  useCommandShortcut={true}
-                  language="ko-KR"
-                />
-              </div>
+                </div>
+              ) : (
+                <>
+                  <input
+                    type="text"
+                    placeholder="제목"
+                    className="w-full p-2 border rounded"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    required
+                  />
 
-              <button
-                onClick={handleSubmit}
-                className="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-500 disabled:bg-gray-400"
-                disabled={!recipient || !title}
-              >
-                보내기
-              </button>
+                  <div className="relative" ref={dropdownRef}>
+                    <input
+                      type="email"
+                      placeholder="받는 사람"
+                      className="w-full p-2 border rounded"
+                      value={recipient}
+                      onChange={handleRecipientChange}
+                      required
+                    />
+                    {showDropdown && filteredUsers.length > 0 && (
+                      <div className="absolute z-10 w-full mt-1 bg-white border rounded-md shadow-lg max-h-48 overflow-y-auto">
+                        {filteredUsers.map((email, index) => (
+                          <div
+                            key={index}
+                            className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                            onClick={() => handleSelectUser(email)}
+                          >
+                            {email}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex-1">
+                    <Editor
+                      ref={editorRef}
+                      initialValue="내용을 입력하세요"
+                      previewStyle="vertical"
+                      height="100%"
+                      initialEditType="wysiwyg"
+                      useCommandShortcut={true}
+                      language="ko-KR"
+                    />
+                  </div>
+
+                  <button
+                    onClick={handleSubmit}
+                    className="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-500 disabled:bg-gray-400"
+                    disabled={!recipient || !title}
+                  >
+                    보내기
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </div>
