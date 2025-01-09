@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const authCtx = useContext(AuthContext);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -12,26 +12,29 @@ const SignUp = () => {
     const email = formData.get("email");
     const password = formData.get("password");
     const confirmPassword = formData.get("confirm-password");
+    const name = formData.get("name");
 
     console.log({
-      email: formData.get("email"),
+      email: email,
       password: password,
       confirmPassword: confirmPassword,
+      name: name,
     });
 
     // 패스워드가 안맞으면 안넘어가게
     if (password !== confirmPassword) {
       // setShowError(true);
       alert("패스워드가 일치하지 않습니다");
-      return
+      return;
     }
 
     // 이미 가입된 사용자인지 확인
     try {
-      authCtx.onSignUp(email, password);
+      authCtx.onSignUp(email, password, name);
       navigate("/"); // 회원가입 성공 시 홈으로 이동
     } catch (error) {
       alert(error.message);
+      navigate("/login");
     }
 
     // authCtx.onLogin(formData.get("email"), formData.get("password"));
@@ -78,7 +81,24 @@ const SignUp = () => {
                 />
               </div>
             </div>
-
+            <div>
+              <label
+                htmlFor="name"
+                className="block text-sm/6 font-medium text-gray-900"
+              >
+                name
+              </label>
+              <div className="mt-2">
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  required
+                  autoComplete="text"
+                  className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                />
+              </div>
+            </div>
             <div>
               <div className="flex items-center justify-between">
                 <label
