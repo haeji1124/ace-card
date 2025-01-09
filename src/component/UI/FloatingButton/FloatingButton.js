@@ -135,9 +135,15 @@ const FloatingButton = () => {
               {!showEditor ? (
                 <div className="flex-1 flex items-center justify-center">
                   <div className="envelope">
-                    <div className="envelope-flap"></div>
-                    <div className="envelope-body"></div>
+                    <div className="envelope-body">
+                      <div className="envelope-left"></div>
+
+                      <div className="envelope-right"></div>
+                    </div>
+
                     <div className="letter"></div>
+
+                    <div className="envelope-flap"></div>
                   </div>
                 </div>
               ) : (
