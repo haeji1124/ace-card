@@ -3,6 +3,7 @@ import { Mail } from "lucide-react";
 import { Editor } from "@toast-ui/react-editor";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import AuthContext from "../../../store/auth-context";
+import { useNavigate } from "react-router-dom";
 
 const FloatingButton = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -13,12 +14,15 @@ const FloatingButton = () => {
   const editorRef = useRef();
   const dropdownRef = useRef(null);
   const authCtx = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const getFilteredUsers = (searchText) => {
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    const users = JSON.parse(localStorage.getItem("users") || "[]");
     return users
-      .filter(user => user.email.toLowerCase().includes(searchText.toLowerCase()))
-      .map(user => user.email);
+      .filter((user) =>
+        user.email.toLowerCase().includes(searchText.toLowerCase())
+      )
+      .map((user) => user.email);
   };
 
   useEffect(() => {
@@ -56,18 +60,28 @@ const FloatingButton = () => {
       title: title,
       content: content,
       timestamp: new Date().toISOString(),
-      isRead: false
+      isRead: false,
     };
 
     // 발신 메시지 저장
-    const sentMessages = JSON.parse(localStorage.getItem(`sentMessages_${authCtx.email}`) || '[]');
+    const sentMessages = JSON.parse(
+      localStorage.getItem(`sentMessages_${authCtx.email}`) || "[]"
+    );
     sentMessages.push(newMessage);
-    localStorage.setItem(`sentMessages_${authCtx.email}`, JSON.stringify(sentMessages));
+    localStorage.setItem(
+      `sentMessages_${authCtx.email}`,
+      JSON.stringify(sentMessages)
+    );
 
     // 수신자의 받은 메시지함에 저장
-    const receivedMessages = JSON.parse(localStorage.getItem(`receivedMessages_${recipient}`) || '[]');
+    const receivedMessages = JSON.parse(
+      localStorage.getItem(`receivedMessages_${recipient}`) || "[]"
+    );
     receivedMessages.push(newMessage);
-    localStorage.setItem(`receivedMessages_${recipient}`, JSON.stringify(receivedMessages));
+    localStorage.setItem(
+      `receivedMessages_${recipient}`,
+      JSON.stringify(receivedMessages)
+    );
 
     // 모달 초기화 및 닫기
     setTitle("");
@@ -77,6 +91,8 @@ const FloatingButton = () => {
 
     // 성공 메시지 표시
     alert("메시지가 성공적으로 전송되었습니다!");
+
+    navigate("/outbox");
   };
 
   return (
@@ -102,7 +118,6 @@ const FloatingButton = () => {
             </div>
 
             <div className="p-4 flex-1 flex flex-col space-y-4 overflow-hidden">
-
               <input
                 type="text"
                 placeholder="제목"
