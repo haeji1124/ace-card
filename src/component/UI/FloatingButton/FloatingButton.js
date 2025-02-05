@@ -204,12 +204,12 @@ const FloatingButton = () => {
                     {/* 자동완성 드롭다운 */}
 
                     {showDropdown && filteredUsers.length > 0 && (
-                      <div className="absolute z-10 w-full mt-1 bg-white border rounded-lg shadow-lg max-h-48 overflow-y-auto animate-slideDown">
+                      <div className="absolute z-[60] w-full mt-1 bg-white border rounded-lg shadow-lg max-h-48 overflow-y-auto animate-slideDown">
                         {filteredUsers.map((email, index) => (
                           <div
                             key={index}
                             className="px-4 py-3 hover:bg-gray-50 cursor-pointer transition-colors flex items-center space-x-2"
-                            onChange={() => handleSelectUser(email)}
+                            onClick={() => handleSelectUser(email)}
                           >
                             <User className="w-4 h-4 text-gray-400" />
 
@@ -222,7 +222,10 @@ const FloatingButton = () => {
 
                   {/* 에디터 */}
 
-                  <div className="flex-1 border rounded-lg overflow-hidden">
+                  <div
+                    className="flex-1 border rounded-lg overflow-hidden"
+                    style={{ zIndex: 10 }}
+                  >
                     <Editor
                       ref={editorRef}
                       initialValue="내용을 입력하세요"
