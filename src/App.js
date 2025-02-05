@@ -8,15 +8,16 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import SignUp from "./component/SignUp/SignUp";
 import Inbox from "./component/MessageCards/Inbox";
 import Outbox from "./component/MessageCards/Outbox";
+import { ModalProvider } from "./store/card-modal-context";
 
 function App() {
   const ctx = useContext(AuthContext);
 
   // 전체 인증 상태 로깅
-  console.log('App rendered. Auth state:', {
+  console.log("App rendered. Auth state:", {
     isLoggedIn: ctx.isLoggedIn,
     email: ctx.email,
-    currentPath: window.location.pathname
+    currentPath: window.location.pathname,
   });
 
   // 초기화되지 않았다면 아무것도 렌더링하지 않음
@@ -24,52 +25,61 @@ function App() {
     return null; // 또는 로딩 스피너를 보여줄 수 있습니다
   }
 
-    return (
-      <>
-        <MainHeader />
-        <main>
-          <Routes>
-            <Route
-              path="/login"
-              element={!ctx.isLoggedIn ? <Login /> : <Navigate to="/" replace />}
-            />
-            <Route
-              path="/signup"
-              element={!ctx.isLoggedIn ? <SignUp /> : <Navigate to="/" replace />}
-            />
-            <Route
-              path="/inbox"
-              element={ctx.isLoggedIn ? <Inbox /> : <Navigate to="/login" replace />}
-            />
-            <Route
-              path="/outbox"
-              element={ctx.isLoggedIn ? <Outbox /> : <Navigate to="/login" replace />}
-            />
-            <Route
-              path="/"
-              element={
-                ctx.isLoggedIn ? (
-                  <>
-                    <Home />
-                    <FloatingButton />
-                  </>
-                ) : (
-                  <Navigate to="/login" replace />
-                )
-              }
-            />
-            <Route path="*" element={<Navigate to={ctx.isLoggedIn ? "/" : "/login"} replace />} />
-          </Routes>
-        </main>
-      </>
-    );
+  return (
+    <>
+      <MainHeader />
+      <main>
+        <Routes>
+          <Route
+            path="/login"
+            element={!ctx.isLoggedIn ? <Login /> : <Navigate to="/" replace />}
+          />
+          <Route
+            path="/signup"
+            element={!ctx.isLoggedIn ? <SignUp /> : <Navigate to="/" replace />}
+          />
+          <Route
+            path="/inbox"
+            element={
+              ctx.isLoggedIn ? <Inbox /> : <Navigate to="/login" replace />
+            }
+          />
+          <Route
+            path="/outbox"
+            element={
+              ctx.isLoggedIn ? <Outbox /> : <Navigate to="/login" replace />
+            }
+          />
+          <Route
+            path="/"
+            element={
+              ctx.isLoggedIn ? (
+                <>
+                  <Home />
+                  <FloatingButton />
+                </>
+              ) : (
+                <Navigate to="/login" replace />
+              )
+            }
+          />
+          <Route
+            path="*"
+            element={<Navigate to={ctx.isLoggedIn ? "/" : "/login"} replace />}
+          />
+        </Routes>
+      </main>
+    </>
+  );
 }
 
 export default function AppWithContext() {
   return (
     <BrowserRouter>
       <AuthContextProvider>
-        <App />
+        <ModalProvider>
+          <App />
+        </ModalProvider>
       </AuthContextProvider>
     </BrowserRouter>
   );
