@@ -49,7 +49,7 @@ const Weekdays = () => {
                 >
                   {hoveredDay === stat.day && (
                     <div className="absolute w-full -top-8">
-                      <span className="bg-gray-900 text-white px-2 py-1 rounded text-sm">
+                      <span className="bg-gray-900 text-white px-2 py-1 rounded text-sm flex justify-center">
                         {stat.count}개
                       </span>
                     </div>
