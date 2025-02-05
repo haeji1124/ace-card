@@ -14,7 +14,7 @@ import {
   Crown,
 } from "lucide-react";
 import BirthdayCard from "../BirthdayCard/BirthdayCard";
-import SendCard from "../../SendCard/SendCard";
+import SendCard from "../SendCard/SendCard";
 import Statistics from "../Statistics/Statistics";
 
 const Home = () => {
