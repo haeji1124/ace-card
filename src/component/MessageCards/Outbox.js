@@ -78,7 +78,7 @@ const Sent = () => {
 
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">받은 메시지함</h1>
+          <h1 className="text-2xl font-bold text-gray-900">보낸 메시지함</h1>
 
           <p className="text-sm text-gray-500">
             읽지 않은 메시지 {unreadCount}개가 있습니다
