@@ -16,7 +16,7 @@ const Weekdays = () => {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
+    <>
       {/* 요일별 통계 카드 */}
 
       <div className="bg-white rounded-2xl p-6 shadow-lg w-full">
@@ -68,7 +68,7 @@ const Weekdays = () => {
           금요일에 가장 많은 칭찬이 작성되었어요! 💌
         </p>
       </div>
-    </div>
+    </>
   );
 };
 
