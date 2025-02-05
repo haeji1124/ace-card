@@ -207,7 +207,7 @@ const MainHeader = () => {
                   className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center"
                   onClick={toggleSidebar}
                 >
-                  <User className="w-5 h-5 text-gray-500" />
+                  <User className="w-5 h-5 text-gray-500 cursor-pointer" />
                 </div>
               )}
             </div>
